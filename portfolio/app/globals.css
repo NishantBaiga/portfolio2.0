@@ -4,7 +4,7 @@
 
 @custom-variant dark (&:is(.dark *));
 
-@theme inline {
+/* @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-sans);
@@ -46,9 +46,51 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
-}
+} */
 
-:root {
+@theme inline {
+    --font-heading: var(--font-sans);
+    --font-sans: 'Geist Variable', sans-serif;
+    --color-sidebar-ring: var(--sidebar-ring);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar: var(--sidebar);
+    --color-chart-5: var(--chart-5);
+    --color-chart-4: var(--chart-4);
+    --color-chart-3: var(--chart-3);
+    --color-chart-2: var(--chart-2);
+    --color-chart-1: var(--chart-1);
+    --color-ring: var(--ring);
+    --color-input: var(--input);
+    --color-border: var(--border);
+    --color-destructive: var(--destructive);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-accent: var(--accent);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-muted: var(--muted);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-secondary: var(--secondary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-primary: var(--primary);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-popover: var(--popover);
+    --color-card-foreground: var(--card-foreground);
+    --color-card: var(--card);
+    --color-foreground: var(--foreground);
+    --color-background: var(--background);
+    --radius-sm: calc(var(--radius) * 0.6);
+    --radius-md: calc(var(--radius) * 0.8);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) * 1.4);
+    --radius-2xl: calc(var(--radius) * 1.8);
+    --radius-3xl: calc(var(--radius) * 2.2);
+    --radius-4xl: calc(var(--radius) * 2.6);
+}
+/* :root {
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
@@ -81,9 +123,51 @@
   --sidebar-ring: oklch(0.708 0 0);
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
+} */
+
+:root {
+    --background: oklch(0.98 0.01 90);
+    --foreground: oklch(0.15 0.02 250);
+    --card: oklch(1 0 0);
+    --card-foreground: oklch(0.15 0.02 250);
+    --popover: oklch(1 0 0);
+    --popover-foreground: oklch(0.15 0.02 250);
+    --primary: oklch(0.5 0.25 25); /* LEGO Red */
+    --primary-foreground: oklch(0.98 0.01 90);
+    --secondary: oklch(0.85 0.2 90); /* LEGO Yellow */
+    --secondary-foreground: oklch(0.15 0.02 250);
+    --muted: oklch(0.9 0.02 250);
+    --muted-foreground: oklch(0.4 0.02 250);
+    --accent: oklch(0.45 0.2 250); /* LEGO Blue */
+    --accent-foreground: oklch(0.98 0.01 90);
+    --destructive: oklch(0.577 0.245 27.325);
+    --border: oklch(0.15 0.02 250);
+    --input: oklch(0.9 0.02 250);
+    --ring: oklch(0.5 0.25 25);
+    --chart-1: oklch(0.5 0.25 25);
+    --chart-2: oklch(0.45 0.2 250);
+    --chart-3: oklch(0.85 0.2 90);
+    --chart-4: oklch(0.55 0.2 150);
+    --chart-5: oklch(0.6 0.2 40);
+    --radius: 0px; /* LEGO is blocky */
+    --sidebar: oklch(0.98 0.01 90);
+    --sidebar-foreground: oklch(0.15 0.02 250);
+    --sidebar-primary: oklch(0.5 0.25 25);
+    --sidebar-primary-foreground: oklch(0.98 0.01 90);
+    --sidebar-accent: oklch(0.85 0.2 90);
+    --sidebar-accent-foreground: oklch(0.15 0.02 250);
+    --sidebar-border: oklch(0.15 0.02 250);
+    --sidebar-ring: oklch(0.5 0.25 25);
+
+    /* Custom LEGO Colors */
+    --lego-red: #E3000B;
+    --lego-yellow: #FFD500;
+    --lego-blue: #0055BF;
+    --lego-green: #009639;
+    --lego-orange: #FF8200;
 }
 
-.dark {
+/* .dark {
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
@@ -115,16 +199,201 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+} */
+
+.dark {
+    --background: oklch(0.15 0.05 250); /* Deep Navy */
+    --foreground: oklch(0.98 0.01 90);
+    --card: oklch(0.2 0.05 250);
+    --card-foreground: oklch(0.98 0.01 90);
+    --popover: oklch(0.2 0.05 250);
+    --popover-foreground: oklch(0.98 0.01 90);
+    --primary: oklch(0.6 0.25 25); /* Glowing Red */
+    --primary-foreground: oklch(0.98 0.01 90);
+    --secondary: oklch(0.9 0.2 90); /* Glowing Yellow */
+    --secondary-foreground: oklch(0.15 0.05 250);
+    --muted: oklch(0.25 0.05 250);
+    --muted-foreground: oklch(0.7 0.05 250);
+    --accent: oklch(0.55 0.2 250); /* Glowing Blue */
+    --accent-foreground: oklch(0.98 0.01 90);
+    --destructive: oklch(0.704 0.191 22.216);
+    --border: oklch(0.98 0.01 90 / 20%);
+    --input: oklch(0.25 0.05 250);
+    --ring: oklch(0.6 0.25 25);
+    
+    /* Blueprint Effect */
+    background-image: 
+        linear-gradient(to right, oklch(0.98 0.01 90 / 5%) 1px, transparent 1px),
+        linear-gradient(to bottom, oklch(0.98 0.01 90 / 5%) 1px, transparent 1px);
+    background-size: 40px 40px;
+}
+
+@layer utilities {
+    .lego-border {
+        border: 4px solid black;
+    }
+    .dark .lego-border {
+        border: 4px solid white;
+    }
+    .lego-shadow {
+        box-shadow: 6px 6px 0px 0px rgba(0,0,0,1);
+    }
+    .dark .lego-shadow {
+        box-shadow: 6px 6px 0px 0px rgba(255,255,255,0.3);
+    }
+    .lego-shadow-sm {
+        box-shadow: 3px 3px 0px 0px rgba(0,0,0,1);
+    }
+    .dark .lego-shadow-sm {
+        box-shadow: 3px 3px 0px 0px rgba(255,255,255,0.3);
+    }
+    .lego-shadow-hover:hover {
+        box-shadow: 10px 10px 0px 0px rgba(0,0,0,1);
+        transform: translate(-4px, -4px);
+    }
+    .dark .lego-shadow-hover:hover {
+        box-shadow: 10px 10px 0px 0px rgba(255,255,255,0.4);
+        transform: translate(-4px, -4px);
+    }
+    .lego-text-outline {
+        text-shadow: 2px 2px 0px #000, -1px -1px 0px #000, 1px -1px 0px #000, -1px 1px 0px #000, 1px 1px 0px #000;
+    }
+    .dark .lego-text-outline {
+        text-shadow: 2px 2px 0px rgba(255,255,255,0.5), -1px -1px 0px rgba(255,255,255,0.5), 1px -1px 0px rgba(255,255,255,0.5), -1px 1px 0px rgba(255,255,255,0.5), 1px 1px 0px rgba(255,255,255,0.5);
+    }
+    .glow-brick {
+        box-shadow: 0 0 15px var(--tw-shadow-color);
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+        width: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: rgba(0,0,0,0.2);
+        border-radius: 10px;
+    }
+    .dark .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: rgba(255,255,255,0.2);
+    }
+}
+
+/* Box Art Effect */
+.box-art-card {
+    position: relative;
+    overflow: hidden;
+}
+.box-art-card::before {
+    content: "AGES 8-99";
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: #FFD500;
+    color: black;
+    padding: 2px 6px;
+    font-weight: 900;
+    font-size: 10px;
+    z-index: 20;
+    border: 2px solid black;
+}
+
+/* Instruction Manual Style */
+.instruction-manual {
+    background: #F5F5F0;
+    border: 8px solid #FFD500;
+    padding: 40px;
+    position: relative;
+}
+.instruction-manual::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, transparent 50%, #FFD500 50%);
+}
+
+/* Custom Cursor Hide */
+@media (pointer: fine) {
+    body, a, button {
+        cursor: none !important;
+    }
+    [data-cursor="default"], 
+    [data-cursor="default"] a, 
+    [data-cursor="default"] button,
+    [data-cursor="default"] input,
+    [data-cursor="default"] textarea {
+        cursor: auto !important;
+    }
+}
+
+/* Stud Progress Bar */
+.stud-bar {
+    display: flex;
+    gap: 4px;
+    padding: 4px;
+}
+.stud {
+    width: 12px;
+    height: 12px;
+    background: rgba(0,0,0,0.1);
+    border-radius: 50%;
+    transition: background 0.3s ease;
+}
+.dark .stud {
+    background: rgba(255,255,255,0.1);
+}
+.stud.active {
+    background: #E3000B;
+    box-shadow: 0 0 5px #E3000B;
+}
+
+.dark {
+    --background: oklch(0.145 0 0);
+    --foreground: oklch(0.985 0 0);
+    --card: oklch(0.205 0 0);
+    --card-foreground: oklch(0.985 0 0);
+    --popover: oklch(0.205 0 0);
+    --popover-foreground: oklch(0.985 0 0);
+    --primary: oklch(0.922 0 0);
+    --primary-foreground: oklch(0.205 0 0);
+    --secondary: oklch(0.269 0 0);
+    --secondary-foreground: oklch(0.985 0 0);
+    --muted: oklch(0.269 0 0);
+    --muted-foreground: oklch(0.708 0 0);
+    --accent: oklch(0.269 0 0);
+    --accent-foreground: oklch(0.985 0 0);
+    --destructive: oklch(0.704 0.191 22.216);
+    --border: oklch(1 0 0 / 10%);
+    --input: oklch(1 0 0 / 15%);
+    --ring: oklch(0.556 0 0);
+    --chart-1: oklch(0.87 0 0);
+    --chart-2: oklch(0.556 0 0);
+    --chart-3: oklch(0.439 0 0);
+    --chart-4: oklch(0.371 0 0);
+    --chart-5: oklch(0.269 0 0);
+    --sidebar: oklch(0.205 0 0);
+    --sidebar-foreground: oklch(0.985 0 0);
+    --sidebar-primary: oklch(0.488 0.243 264.376);
+    --sidebar-primary-foreground: oklch(0.985 0 0);
+    --sidebar-accent: oklch(0.269 0 0);
+    --sidebar-accent-foreground: oklch(0.985 0 0);
+    --sidebar-border: oklch(1 0 0 / 10%);
+    --sidebar-ring: oklch(0.556 0 0);
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
-  }
+    }
   body {
     @apply bg-background text-foreground;
-  }
+    }
   html {
     @apply font-sans;
-  }
+    }
 }
+
+
