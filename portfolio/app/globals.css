@@ -396,4 +396,28 @@
     }
 }
 
+/* LEGO Toast Style */
+[data-sonner-toast] {
+  border: 4px solid black !important;
+  box-shadow: 4px 4px 0px black !important;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+[data-sonner-toast][data-type="success"] {
+  background: #009639 !important;
+  color: white !important;
+}
+
+[data-sonner-toast][data-type="error"] {
+  background: #E3000B !important;
+  color: white !important;
+}
+
+[data-sonner-toast]:not([data-type]) {
+  background: #FFD500 !important;
+  color: black !important;
+}
+
 
