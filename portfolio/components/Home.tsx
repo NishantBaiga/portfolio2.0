@@ -2,7 +2,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, useScroll, useTransform, AnimatePresence } from "motion/react";
 import confetti from "canvas-confetti";
-import {  Trophy } from "lucide-react";
+import { Trophy } from "lucide-react";
 import { CustomCursor } from "./CustomCursor";
 import { ChatBot } from "./ChatBot";
 import { soundManager } from "../lib/soundManager";
@@ -10,13 +10,14 @@ import { Footer } from "./home/Footer";
 import { Navbar } from "./home/Navbar";
 import { Hero } from "./home/Hero";
 import { About } from "./home/About";
-import { Skills } from "./home/Skiils";
+import { Technologies } from "./home/Technologies";
 import { Projects } from "./home/Projects";
 import { Blogs } from "./home/Blogs";
 import { Experience } from "./home/ExperienceTimeLine";
 import { Contact } from "./home/Contact";
 import { StudProgressBar } from "./home/StudyProgresBar";
-
+import { Achievement } from "./home/Achievement";
+import { Skills } from "./home/Skills";
 
 export default function Home() {
   const { scrollYProgress } = useScroll();
@@ -127,7 +128,7 @@ export default function Home() {
 
       {/* Skills Section */}
       <section id="skills" className="py-24 px-4">
-        <Skills />
+        <Technologies />
       </section>
 
       {/* Projects Section */}
@@ -138,6 +139,14 @@ export default function Home() {
           handleFoundBrick={handleFoundBrick}
           foundBricks={foundBricks}
         />
+      </section>
+
+      {/* skills */}
+      <section
+        id="core-skills"
+        className="py-24 px-4 bg-[#F5F5F0] dark:bg-black/40"
+      >
+        <Skills />
       </section>
 
       {/* Blog Section - Instruction Manual Style */}
@@ -154,6 +163,11 @@ export default function Home() {
           handleFoundBrick={handleFoundBrick}
           foundBricks={foundBricks}
         />
+      </section>
+
+      {/* Achievement Section */}
+      <section className="py-24 px-4 bg-[#0055BF] text-white">
+        <Achievement />
       </section>
 
       {/* Contact Adventure Section */}

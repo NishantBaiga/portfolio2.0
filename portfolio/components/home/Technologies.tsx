@@ -1,7 +1,7 @@
 import { SectionHeader } from "./SectionHeader";
 import { SKILLS } from "@/data/skils";
 import { motion } from "framer-motion";
-export function Skills(){
+export function Technologies(){
     return (
         <div className="max-w-7xl mx-auto">
                   <SectionHeader
