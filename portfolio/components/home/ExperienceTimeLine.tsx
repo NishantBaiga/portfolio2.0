@@ -33,29 +33,29 @@ export function Experience(
 
             {[
               {
-                year: "2019 - 2021",
-                role: "Junior Developer",
-                company: "StartUp Bricks",
+                year: "2021 - 2024",
+                role: "B.S.in Computer Science",
+                company: "Pandit Shambhunath Shukla University",
                 color: "#009639",
                 description:
-                  "Started as a junior, learning the fundamentals of brick-based architecture.",
+                  "Mastering the fundamentals: Algorithms, Data Structures, and the core principles of Software Engineering.",
               },
               {
-                year: "2021 - 2023",
+                year: "2024 - 2025",
                 role: "Full Stack Developer",
-                company: "Creative Cubes",
+                company: "Self Learning",
                 color: "#0055BF",
                 description:
                   "Expanded to full-stack, building complex interconnected systems.",
               },
-              {
-                year: "2023 - Present",
-                role: "Senior Brick Engineer",
-                company: "TechBlocks Inc.",
-                color: "#E3000B",
-                description:
-                  "Leading the engineering team, designing high-performance digital structures.",
-              },
+              // {
+              //   year: "2026 - Present",
+              //   role: "Junior Developer",
+              //   company: "TechBlocks Inc.",
+              //   color: "#E3000B",
+              //   description:
+              //     "Leading the engineering team, designing high-performance digital structures.",
+              // },
             ].map((exp, i) => (
               <motion.div
                 key={i}

@@ -25,7 +25,6 @@ export default function Home() {
 
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [contactStep, setContactStep] = useState(1);
-  const [projectFilter, setProjectFilter] = useState("all");
   const [outfit, setOutfit] = useState<"default" | "wizard" | "engineer">(
     "default",
   );
@@ -132,10 +131,8 @@ export default function Home() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="py-24 px-4 bg-black text-white">
+      <section id="projects" className="py-24 px-4 bg-muted text-white">
         <Projects
-          projectFilter={projectFilter}
-          setProjectFilter={setProjectFilter}
           handleFoundBrick={handleFoundBrick}
           foundBricks={foundBricks}
         />

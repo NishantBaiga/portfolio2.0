@@ -4,6 +4,7 @@ import { GoldenBrick } from "./GoldenBrick";
 import { SectionHeader } from "./SectionHeader";
 import { ThreeDModelViewer } from "../ThreeDModelViewer";
 import { MiniFigure } from "../MiniFigure";
+
 type AboutProps = {
   outfit: "default" | "wizard" | "engineer";
   setOutfit: (value: "default" | "wizard" | "engineer") => void;
@@ -56,9 +57,9 @@ export function About({
             </div>
 
             <a
-              href="../public/Nishant_Baiga_Resume.pdf"
-              target="_blank"
+              href="Resume.pdf"
               download="Nishant_Baiga_Resume.pdf"
+              className="w-full"
             >
               <Button className="w-full bg-[#009639] hover:bg-[#009639]/90 text-white font-black uppercase lego-border lego-shadow-sm h-14 gap-2">
                 <Download className="w-5 h-5" />

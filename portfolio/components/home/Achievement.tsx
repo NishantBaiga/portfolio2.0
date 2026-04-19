@@ -10,7 +10,7 @@ export function Achievement() {
             {[
               { title: "Meta Front-End Developer", issuer: "Coursera", color: "bg-[#4267B2]" },
               { title: "AWS Cloud Practitioner", issuer: "Amazon Web Services", color: "bg-[#FF9900]" },
-              { title: "Hackathon Finalist", issuer: "Global Build-Off", color: "bg-[#E3000B]" }
+              // { title: "Hackathon Finalist", issuer: "Global Build-Off", color: "bg-[#E3000B]" }
             ].map((cert, i) => (
               <motion.div
                 key={i}

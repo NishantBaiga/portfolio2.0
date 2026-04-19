@@ -5,8 +5,8 @@ export function Blogs(){
     return (
         <div className="max-w-5xl mx-auto">
                   <SectionHeader
-                    title="Instruction Manuals"
-                    subtitle="Step-by-step guides to building better software."
+                    title="Learning Log"
+                    subtitle="Deconstructing complex systems brick by brick."
                   />
         
                   <div className="grid md:grid-cols-2 gap-12">
