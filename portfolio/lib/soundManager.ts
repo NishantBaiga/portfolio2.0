@@ -3,16 +3,14 @@ class SoundManager {
   private sounds: Record<string, HTMLAudioElement> = {};
 
   private constructor() {
-    // Using generic UI sounds from a public CDN
     this.sounds = {
-      click: new Audio('https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3'),
-      snap: new Audio('https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3'),
-      success: new Audio('https://assets.mixkit.co/active_storage/sfx/1435/1435-preview.mp3'),
-      collect: new Audio('https://assets.mixkit.co/active_storage/sfx/2019/2019-preview.mp3'),
+      click: new Audio("/sounds/click.mp3"),
+      snap: new Audio("/sounds/snap.mp3"),
+      success: new Audio("/sounds/success.mp3"),
+      collect: new Audio("/sounds/collect.mp3"),
     };
-
     // Preload and set volumes
-    Object.values(this.sounds).forEach(sound => {
+    Object.values(this.sounds).forEach((sound) => {
       sound.volume = 0.2;
       sound.load();
     });
@@ -36,7 +34,7 @@ class SoundManager {
   }
 
   public vibrate(ms: number = 50) {
-    if ('vibrate' in navigator) {
+    if ("vibrate" in navigator) {
       navigator.vibrate(ms);
     }
   }
