@@ -1,59 +1,192 @@
 "use client";
-import { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence, useDragControls } from 'motion/react';
-import { MessageSquare, X, Send, Bot, User, Sparkles, GripHorizontal } from 'lucide-react';
-import { Button } from '../components/ui/button';
-import { Input } from '../components/ui/input';
-// import { getChatResponse } from '../services/geminiServices';
-import { soundManager } from '../lib/soundManager';
+
+import { useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence, useDragControls } from "framer-motion";
+import {
+  MessageSquare,
+  X,
+  Send,
+  Bot,
+  User,
+  Sparkles,
+  GripHorizontal,
+} from "lucide-react";
+import { Button } from "../components/ui/button";
+import { Input } from "../components/ui/input";
+import { soundManager } from "../lib/soundManager";
 
 interface Message {
-  role: 'user' | 'model';
+  role: "user" | "model";
   text: string;
 }
 
 export function ChatBot() {
+  //   const [isOpen, setIsOpen] = useState(false);
+  //   const [input, setInput] = useState("");
+  //   const [messages, setMessages] = useState<Message[]>([
+  //     {
+  //       role: "model",
+  //       text: "Hi there! I'm BrickBot. Ask me anything about Nishant's work or hunt for golden bricks 🧱✨",
+  //     },
+  //   ]);
+  //   const [isLoading, setIsLoading] = useState(false);
+  //   const [sessionId, setSessionId] = useState<string | null>(null);
+
+  //   const scrollRef = useRef<HTMLDivElement>(null);
+  //   const dragControls = useDragControls();
+
+  //   // Auto scroll
+  //   useEffect(() => {
+  //     if (scrollRef.current) {
+  //       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+  //     }
+  //   }, [messages, isOpen]);
+
+  //   useEffect(() => {
+  //   let existing = localStorage.getItem("chat_session_id");
+
+  //   if (!existing) {
+  //     existing = crypto.randomUUID(); // 🔥 generate unique session
+  //     localStorage.setItem("chat_session_id", existing);
+  //   }
+
+  //   setSessionId(existing);
+  // }, []);
+
+  //   // Send message
+  //   const handleSend = async () => {
+  //     // if (!input.trim() || isLoading) return;
+  //     if (!input.trim() || isLoading || !sessionId) return;
+
+  //     const userMessage = input.trim();
+  //     setInput("");
+  //     setMessages((prev) => [...prev, { role: "user", text: userMessage }]);
+  //     setIsLoading(true);
+  //     soundManager.play("click");
+
+  //     try {
+  //       const res = await fetch("/api/chat", {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify({
+  //           message: userMessage,
+  //           sessionId,
+  //         }),
+  //       });
+
+  //       const data = await res.json();
+
+  //       if (data.success) {
+  //         setMessages((prev) => [
+  //           ...prev,
+  //           { role: "model", text: data.message },
+  //         ]);
+  //         setSessionId(data.sessionId);
+  //         soundManager.play("snap");
+  //       } else {
+  //         setMessages((prev) => [
+  //           ...prev,
+  //           {
+  //             role: "model",
+  //             text: "Something broke in the brick factory 🧱 Try again!",
+  //           },
+  //         ]);
+  //       }
+  //     } catch (error) {
+  //       setMessages((prev) => [
+  //         ...prev,
+  //         {
+  //           role: "model",
+  //           text: "Server is sleeping 😴 Try again later!",
+  //         },
+  //       ]);
+  //     }
+
+  //     setIsLoading(false);
+  //   };
+
   const [isOpen, setIsOpen] = useState(false);
-  const [input, setInput] = useState('');
-  const [messages, setMessages] = useState<Message[]>(() => {
-    const saved = localStorage.getItem('brickbot_history');
-    return saved ? JSON.parse(saved) : [
-      { role: 'model', text: "Hi there! I'm BrickBot. Ask me anything about Nishant's work or how to find those hidden golden bricks!" }
-    ];
-  });
+  const [input, setInput] = useState("");
+  const [messages, setMessages] = useState<Message[]>([
+    {
+      role: "model",
+      text: "Hi there! I'm BrickBot. Ask me anything about Nishant's work or hunt for golden bricks 🧱✨",
+    },
+  ]);
   const [isLoading, setIsLoading] = useState(false);
+  const [sessionId, setSessionId] = useState<string | null>(null);
+
   const scrollRef = useRef<HTMLDivElement>(null);
   const dragControls = useDragControls();
 
+  // ✅ Generate / restore sessionId
   useEffect(() => {
-    localStorage.setItem('brickbot_history', JSON.stringify(messages));
-  }, [messages]);
+    let existing = localStorage.getItem("chat_session_id");
 
+    if (!existing) {
+      existing = crypto.randomUUID(); // unique session
+      localStorage.setItem("chat_session_id", existing);
+    }
+
+    setSessionId(existing);
+  }, []);
+
+  // ✅ Auto scroll
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   }, [messages, isOpen]);
 
+  // ✅ Send message
   const handleSend = async () => {
-    if (!input.trim() || isLoading) return;
+    if (!input.trim() || isLoading || !sessionId) return;
 
     const userMessage = input.trim();
-    setInput('');
-    setMessages(prev => [...prev, { role: 'user', text: userMessage }]);
+    setInput("");
+    setMessages((prev) => [...prev, { role: "user", text: userMessage }]);
     setIsLoading(true);
-    soundManager.play('click');
+    soundManager.play("click");
 
-    const history = messages.map(m => ({
-      role: m.role,
-      parts: [{ text: m.text }]
-    }));
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          message: userMessage,
+          sessionId,
+        }),
+      });
 
-    // const response = await getChatResponse(userMessage, history);
-    
-    // setMessages(prev => [...prev, { role: 'model', text: response }]);
+      const data = await res.json();
+
+      if (data.success) {
+        setMessages((prev) => [...prev, { role: "model", text: data.message }]);
+        soundManager.play("snap");
+      } else {
+        setMessages((prev) => [
+          ...prev,
+          {
+            role: "model",
+            text: "Something broke in the brick factory 🧱 Try again!",
+          },
+        ]);
+      }
+    } catch (error) {
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "model",
+          text: "Server is sleeping 😴 Try again later!",
+        },
+      ]);
+    }
+
     setIsLoading(false);
-    soundManager.play('snap');
   };
 
   return (
@@ -68,70 +201,64 @@ export function ChatBot() {
             dragControls={dragControls}
             dragListener={false}
             dragMomentum={false}
-            data-cursor="default"
-            className="absolute bottom-20 right-0 w-[350px] min-w-[280px] min-h-[400px] max-w-[calc(100vw-2rem)] max-h-[calc(100vh-10rem)] bg-white dark:bg-card border-4 border-black dark:border-white lego-shadow flex flex-col overflow-hidden resize both cursor-auto"
-            style={{ 
-              resize: 'both',
-              overflow: 'hidden'
-            }}
+            className="absolute bottom-20 right-0 w-[350px] min-w-[280px] min-h-[400px] max-w-[calc(100vw-2rem)] max-h-[calc(100vh-10rem)] bg-white border-4 border-black lego-shadow flex flex-col overflow-hidden resize both"
           >
-            {/* Header / Drag Handle */}
-            <div 
+            {/* Header */}
+            <div
               onPointerDown={(e) => dragControls.start(e)}
-              className="bg-[#E3000B] p-3 flex justify-between items-center border-b-4 border-black dark:border-white cursor-move active:cursor-grabbing select-none"
+              className="bg-[#E3000B] p-3 flex justify-between items-center border-b-4 border-black cursor-move"
             >
               <div className="flex items-center gap-2 text-white">
                 <Bot className="w-5 h-5" />
-                <span className="font-black uppercase tracking-tighter text-sm">BrickBot AI</span>
+                <span className="font-black text-sm uppercase">
+                  BrickBot AI
+                </span>
               </div>
-              <div className="flex items-center gap-1">
-                <GripHorizontal className="w-4 h-4 text-white/50" />
-                <Button 
-                  variant="ghost" 
-                  size="icon" 
-                  onClick={() => setIsOpen(false)}
-                  className="text-white hover:bg-black/20 h-8 w-8"
-                >
-                  <X className="w-4 h-4" />
-                </Button>
-              </div>
+
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => {
+                  setIsOpen(false);
+                  soundManager.play("click");
+                }}
+                className="text-white hover:bg-black/20 h-8 w-8"
+              >
+                <X className="w-4 h-4" />
+              </Button>
             </div>
 
-            {/* Messages Area */}
-            <div 
-              className="flex-1 overflow-y-auto p-4 space-y-4 bg-[#F5F5F0] dark:bg-black/20 custom-scrollbar"
-              style={{ height: '100%' }}
-            >
-              <div ref={scrollRef} className="space-y-4 pb-4">
+            {/* Messages */}
+            <div className="flex-1 overflow-y-auto p-4 bg-[#F5F5F0]">
+              <div ref={scrollRef} className="space-y-4">
                 {messages.map((m, i) => (
                   <motion.div
                     key={i}
-                    initial={{ opacity: 0, x: m.role === 'user' ? 20 : -20 }}
+                    initial={{ opacity: 0, x: m.role === "user" ? 20 : -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                    className={`flex ${
+                      m.role === "user" ? "justify-end" : "justify-start"
+                    }`}
                   >
-                    <div className={`max-w-[85%] p-3 lego-border-sm ${
-                      m.role === 'user' 
-                        ? 'bg-[#0055BF] text-white' 
-                        : 'bg-white dark:bg-muted text-black dark:text-white'
-                    }`}>
-                      <div className="flex items-center gap-2 mb-1">
-                        {m.role === 'user' ? <User className="w-3 h-3" /> : <Bot className="w-3 h-3" />}
-                        <span className="text-[10px] font-black uppercase tracking-widest opacity-60">
-                          {m.role === 'user' ? 'You' : 'BrickBot'}
-                        </span>
-                      </div>
-                      <p className="text-sm font-bold leading-relaxed break-words">{m.text}</p>
+                    <div
+                      className={`max-w-[85%] p-3 lego-border-sm ${
+                        m.role === "user"
+                          ? "bg-[#0055BF] text-white"
+                          : "bg-white text-black"
+                      }`}
+                    >
+                      <p className="text-sm font-bold">{m.text}</p>
                     </div>
                   </motion.div>
                 ))}
+
                 {isLoading && (
                   <div className="flex justify-start">
-                    <div className="bg-white dark:bg-muted p-3 lego-border-sm animate-pulse">
+                    <div className="bg-white p-3 lego-border-sm animate-pulse">
                       <div className="flex gap-1">
-                        <div className="w-2 h-2 bg-[#E3000B] rounded-full" />
-                        <div className="w-2 h-2 bg-[#FFD500] rounded-full" />
-                        <div className="w-2 h-2 bg-[#0055BF] rounded-full" />
+                        <div className="w-2 h-2 bg-red-500 rounded-full" />
+                        <div className="w-2 h-2 bg-yellow-400 rounded-full" />
+                        <div className="w-2 h-2 bg-blue-500 rounded-full" />
                       </div>
                     </div>
                   </div>
@@ -140,51 +267,45 @@ export function ChatBot() {
             </div>
 
             {/* Input */}
-            <div className="p-4 bg-white dark:bg-card border-t-4 border-black dark:border-white flex gap-2 mt-auto cursor-auto">
-              <Input 
-                placeholder="Ask about Nishant..."
+            <div className="p-4 border-t-4 border-black flex gap-2">
+              <Input
+                placeholder="Ask something..."
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                className="lego-border font-bold h-10 cursor-text"
+                onKeyDown={(e) => e.key === "Enter" && handleSend()}
+                className="lego-border font-bold"
               />
-              <Button 
+
+              <Button
                 onClick={handleSend}
                 disabled={isLoading}
-                className="bg-[#009639] hover:bg-[#009639]/90 text-white lego-border lego-shadow-sm h-10 px-3 cursor-pointer"
+                className="bg-[#009639] text-white lego-border"
               >
                 <Send className="w-4 h-4" />
               </Button>
-            </div>
-            
-            {/* Resize Handle Visual */}
-            <div className="absolute bottom-0 right-0 w-4 h-4 cursor-nwse-resize flex items-end justify-end p-0.5 pointer-events-none">
-              <div className="w-2 h-2 border-r-2 border-b-2 border-black/20" />
             </div>
           </motion.div>
         )}
       </AnimatePresence>
 
+      {/* Floating Button */}
       <motion.button
-        whileHover={{ scale: 1.1, rotate: 5 }}
+        whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         onClick={() => {
           setIsOpen(!isOpen);
-          soundManager.play('click');
+          soundManager.play("click");
         }}
-        className="w-16 h-16 bg-[#E3000B] text-white lego-border lego-shadow flex items-center justify-center relative group"
+        className="w-16 h-16 bg-[#E3000B] text-white lego-border lego-shadow flex items-center justify-center"
       >
-        <div className="absolute -top-2 -left-2 w-4 h-4 bg-[#E3000B] lego-border rounded-full group-hover:scale-125 transition-transform" />
-        <div className="absolute -top-2 -right-2 w-4 h-4 bg-[#E3000B] lego-border rounded-full group-hover:scale-125 transition-transform" />
-        <div className="absolute -bottom-2 -left-2 w-4 h-4 bg-[#E3000B] lego-border rounded-full group-hover:scale-125 transition-transform" />
-        <div className="absolute -bottom-2 -right-2 w-4 h-4 bg-[#E3000B] lego-border rounded-full group-hover:scale-125 transition-transform" />
-        
-        {isOpen ? <X className="w-8 h-8" /> : <MessageSquare className="w-8 h-8" />}
-        
+        {isOpen ? (
+          <X className="w-8 h-8" />
+        ) : (
+          <MessageSquare className="w-8 h-8" />
+        )}
+
         {!isOpen && (
-          <div className="absolute -top-1 -right-1">
-            <Sparkles className="w-4 h-4 text-[#FFD500] animate-pulse" />
-          </div>
+          <Sparkles className="absolute top-1 right-1 w-4 h-4 text-yellow-400 animate-pulse" />
         )}
       </motion.button>
     </div>
