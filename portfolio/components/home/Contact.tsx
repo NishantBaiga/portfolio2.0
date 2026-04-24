@@ -88,24 +88,17 @@ export function Contact({
 
       if (data.success) {
         toast.success("Brick shipped! 🚀");
-        soundManager.play("success"); // 🔊 play success sound
-        soundManager.vibrate(80); // 📳 optional vibration
-        setContactData({
-          color: "",
-          email: "",
-          message: "",
-        });
-        setContactStep(4);
-      } else {
-        toast.error("Something broke. Try again.");
-      }
-    } catch (err) {
-      console.log(err);
-      toast.error("Try again later.");
-    } finally {
-      setLoading(false);
+
+      setContactStep(4);
+    } else {
+      toast.error("Something broke. Try again.");
     }
-  };
+  } catch (err) {
+    toast.error("Try again later.");
+  } finally {
+    setLoading(false);
+  }
+};
   return (
     <div className="max-w-3xl mx-auto">
       <SectionHeader
