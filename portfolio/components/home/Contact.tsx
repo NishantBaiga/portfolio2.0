@@ -6,7 +6,8 @@ import { GoldenBrick } from "./GoldenBrick";
 import { SectionHeader } from "./SectionHeader";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
-import {toast} from "sonner"
+import { toast } from "sonner";
+import { soundManager } from "@/lib/soundManager";
 
 type ContactData = {
   color: string;
@@ -22,7 +23,7 @@ type ContactProps = {
   handleFoundBrick: (id: string) => void;
   foundBricks: string[];
 };
-  export function Contact({
+export function Contact({
   contactStep,
   setContactStep,
   contactData,
@@ -32,59 +33,78 @@ type ContactProps = {
 }: ContactProps) {
   const [loading, setLoading] = useState(false);
 
-
   const validate = () => {
-  if (!contactData.email || !contactData.message) {
-    toast.error("Fill all fields before building.");
-    return false;
-  }
-
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-  if (!emailRegex.test(contactData.email)) {
-    toast.error("Your email brick is broken 🧱");
-    return false;
-  }
-
-  if (contactData.message.length < 10) {
-    toast.error("Add more details to your brick.");
-    return false;
-  }
-
-  return true;
-};
-
-
-
-const handleSubmit = async () => {
-  if (!validate()) return;
-
-  try {
-    setLoading(true);
-
-    const res = await fetch("/api/contact", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(contactData),
-    });
-
-    const data = await res.json();
-
-    if (data.success) {
-        toast.success("Brick shipped! 🚀");
-
-      setContactStep(4);
-    } else {
-      toast.error("Something broke. Try again.");
+    if (!contactData.email || !contactData.message) {
+      toast.error("Fill all fields before building.");
+      return false;
     }
-  } catch (err) {
-    toast.error("Try again later.");
-  } finally {
-    setLoading(false);
-  }
-};
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(contactData.email)) {
+      toast.error("Your email brick is broken 🧱");
+      return false;
+    }
+
+    if (contactData.message.length < 10) {
+      toast.error("Add more details to your brick.");
+      return false;
+    }
+
+    return true;
+  };
+
+  const handleSubmit = async () => {
+    if (!validate()) return;
+
+    try {
+      setLoading(true);
+      console.log("contact data", contactData);
+
+      // const res = await fetch("/api/contact", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify(contactData),
+      // });
+
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY, // 👈 from env
+          email: contactData.email,
+          message: contactData.message,
+          subject: "New Portfolio Message 🚀",
+          from_name: "Nishant Portfolio",
+          botcheck: "", // spam protection
+        }),
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        toast.success("Brick shipped! 🚀");
+        soundManager.play("success"); // 🔊 play success sound
+        soundManager.vibrate(80); // 📳 optional vibration
+        setContactData({
+          color: "",
+          email: "",
+          message: "",
+        });
+        setContactStep(4);
+      } else {
+        toast.error("Something broke. Try again.");
+      }
+    } catch (err) {
+      toast.error("Try again later.");
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <div className="max-w-3xl mx-auto">
       <SectionHeader
@@ -151,9 +171,11 @@ const handleSubmit = async () => {
                   <button
                     key={c.name}
                     onClick={() => {
+                      soundManager.play("click");
                       setContactData({ ...contactData, color: c.color });
                       setContactStep(2);
                     }}
+                    disabled={loading}
                     className="group flex flex-col items-center gap-3 p-4 hover:bg-[#F5F5F0] transition-colors lego-border"
                   >
                     <div
@@ -207,13 +229,19 @@ const handleSubmit = async () => {
               <div className="flex gap-4">
                 <Button
                   variant="outline"
-                  onClick={() => setContactStep(1)}
+                  onClick={() => {
+                    soundManager.play("click");
+                    setContactStep(1);
+                  }}
                   className="flex-1 h-14 lego-border font-black uppercase"
                 >
                   Back
                 </Button>
                 <Button
-                  onClick={() => setContactStep(3)}
+                  onClick={() => {
+                    soundManager.play("click");
+                    setContactStep(3);
+                  }}
                   disabled={!contactData.email || !contactData.message}
                   className="flex-1 h-14 bg-[#0055BF] text-white lego-border lego-shadow font-black uppercase"
                 >
@@ -247,21 +275,21 @@ const handleSubmit = async () => {
               <div className="flex gap-4">
                 <Button
                   variant="outline"
-                  onClick={() => setContactStep(2)}
+                  onClick={() => {
+                    soundManager.play("click");
+                    setContactStep(2);
+                  }}
                   className="flex-1 h-14 lego-border font-black uppercase"
                 >
                   Edit
                 </Button>
-                {/* <Button
-                  onClick={() => setContactStep(4)}
-                  className="flex-1 h-14 bg-[#009639] text-white lego-border lego-shadow font-black uppercase flex gap-2 items-center justify-center"
-                >
-                  <Send className="w-5 h-5" />
-                  Ship It!
-                </Button> */}
+
                 <Button
                   className="flex-1 h-14 bg-[#009639] text-white lego-border lego-shadow font-black uppercase flex gap-2 items-center justify-center"
-                  onClick={handleSubmit}
+                  onClick={() => {
+                    soundManager.play("click");
+                    handleSubmit();
+                  }}
                   disabled={loading}
                 >
                   {loading ? "Shipping..." : "Ship It!"}
