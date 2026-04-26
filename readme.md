@@ -7,13 +7,8 @@
 ---
 
 ## 🎥 Preview
+<img width="1920" height="890" alt="Screenshot (44)" src="https://github.com/user-attachments/assets/20ee55f5-0528-45ce-b77a-977e82ef5403" />
 
-> Drop your screenshot / gif here 👇
-
-```md
-![Portfolio Preview](./public/assets/preview.png)
-<img width="1920" height="1080" alt="Screenshot (44)" src="https://github.com/user-attachments/assets/073bb4c4-e1c7-4372-9d27-74cc16510d23" />
-```
 
 ---
 
