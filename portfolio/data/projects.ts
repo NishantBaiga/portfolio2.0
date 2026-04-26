@@ -1,59 +1,40 @@
 import { Project } from "@/types";
+import chatImg from "@/assets/chat.webp";
+import codeagentImg from "@/assets/codeagent.png";
+import pdfQnaImg from "@/assets/pdf-qna.png";
 
 export const PROJECTS: Project[] = [
   {
     id: 1,
-    title: "BrickCommerce",
+    title: "PDF Q&A ",
     description:
-      "A full-stack e-commerce platform built with React and Node.js.",
+      "A full-stack PDF Q&A and Summrizer platform built(RAG) with Next.js and LangChain.",
     type: "web",
-    tags: ["React", "Node.js", "MongoDB"],
-    link: "#",
-    image: "https://picsum.photos/seed/brickcommerce/800/600",
+    tags: ["Nextjs", "LangChain", "GeminiAI"],
+    liveLink: "#",
+    githubLink: "https://github.com/NishantBaiga/Pdf-Summariser-RAG-",
+    image: "/assets/pdf-qna.png",
   },
   {
     id: 2,
-    title: "BlockyFit",
-    description: "Mobile fitness tracker with interactive LEGO-style avatars.",
-    type: "mobile",
-    tags: ["React Native", "Firebase"],
-    link: "#",
-    image: "https://picsum.photos/seed/blockyfit/800/600",
+    title: "Webiste Builder",
+    description:
+      "An interactive platform for designing custom UI components and building full websites, combining creativity with powerful development capabilities.",
+    type: "web",
+    tags: ["Inggest", "E2b", "GeminiAI", "React Query ", "TRPC"],
+    liveLink: "#",
+    githubLink: "https://github.com/NishantBaiga/codeagent",
+    image: "/assets/code-agent.png",
   },
   {
     id: 3,
-    title: "DataStacker",
-    description: "Real-time data visualization tool for complex datasets.",
-    type: "data",
-    tags: ["D3.js", "TypeScript", "Python"],
-    link: "#",
-    image: "https://picsum.photos/seed/datastacker/800/600",
-  },
-  {
-    id: 4,
-    title: "BrickQuest",
-    description: "A 2D platformer game made with Phaser.js.",
-    type: "game",
-    tags: ["Phaser.js", "JavaScript"],
-    link: "#",
-    image: "https://picsum.photos/seed/brickquest/800/600",
-  },
-  {
-    id: 5,
-    title: "StudioBuilder",
-    description: "Collaborative workspace for digital architects.",
+    title: "Web-Based Real-Time Chat System",
+    description:
+      "A high-performance real-time chat app that delivers instant messaging, reliable connections, and an engaging user experience.",
     type: "web",
-    tags: ["Next.js", "Socket.io"],
-    link: "#",
-    image: "https://picsum.photos/seed/studiobuilder/800/600",
-  },
-  {
-    id: 6,
-    title: "PixelBricks",
-    description: "AI-powered image to LEGO brick converter.",
-    type: "data",
-    tags: ["Python", "TensorFlow"],
-    link: "#",
-    image: "https://picsum.photos/seed/pixelbricks/800/600",
+    tags: ["ReactJs", "ExpressJs", "Socket.io", "MongoDB", "TailwindCSS","ShadcnUI"],
+    liveLink: "#",
+    githubLink: "https://github.com/NishantBaiga/chatapp-typescript-2025",
+    image: "/assets/chat.webp",
   },
 ];

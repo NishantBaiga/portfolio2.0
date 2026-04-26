@@ -4,7 +4,8 @@ export interface Project {
   description: string;
   type: "web" | "mobile" | "data" | "game";
   tags: string[];
-  link: string;
+  liveLink: string;
+  githubLink: string;
   image: string;
 }
 

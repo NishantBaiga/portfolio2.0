@@ -4,12 +4,12 @@ import { AnimatePresence } from "motion/react";
 import { GoldenBrick } from "./GoldenBrick";
 import { Button } from "../ui/button";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { Badge, ExternalLink } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import { Github } from "@hugeicons/core-free-icons";
 import { motion } from "framer-motion";
-import { Project } from "@/types";
 import { PROJECTS } from "@/data/projects";
 import { useState } from "react";
+import { Badge } from "../ui/badge";
 
 type ProjectsProps = {
   handleFoundBrick: (id: string) => void;
@@ -18,6 +18,8 @@ type ProjectsProps = {
 export function Projects({ handleFoundBrick, foundBricks }: ProjectsProps) {
   const [projectFilter, setProjectFilter] = useState("all");
 
+
+  
   return (
     <div className="max-w-7xl mx-auto">
       <SectionHeader
@@ -26,29 +28,37 @@ export function Projects({ handleFoundBrick, foundBricks }: ProjectsProps) {
       />
 
       <div className="flex justify-center mb-16">
-            <Tabs defaultValue="all" className="w-full max-w-2xl px-4" onValueChange={setProjectFilter}>
-              <TabsList className="bg-transparent h-auto flex flex-wrap justify-center gap-4">
-                {[
-                  { value: 'all', color: 'bg-[#FFD500]', textColor: 'text-black' },
-                  { value: 'web', color: 'bg-[#0055BF]', textColor: 'text-white' },
-                  { value: 'mobile', color: 'bg-[#E3000B]', textColor: 'text-white' },
-                  { value: 'data', color: 'bg-[#009639]', textColor: 'text-white' },
-                  { value: 'game', color: 'bg-[#FF8200]', textColor: 'text-white' }
-                ].map((tab) => (
-                  <TabsTrigger 
-                    key={tab.value}
-                    value={tab.value} 
-                    className={`relative px-8 py-3 font-black uppercase tracking-widest lego-border transition-all data-[state=active]:scale-110  data-[state=active]:shadow-lg ${tab.color} ${tab.textColor} hover:brightness-110`}
-                  >
-                    {/* Brick Studs */}
-                    <div className="absolute -top-1.5 left-2 w-3 h-1.5 bg-black/20 rounded-t-full" />
-                    <div className="absolute -top-1.5 right-2 w-3 h-1.5 bg-black/20 rounded-t-full" />
-                    {tab.value}
-                  </TabsTrigger>
-                ))}
-              </TabsList>
-            </Tabs>
-          </div>
+        <Tabs
+          defaultValue="all"
+          className="w-full max-w-2xl px-4"
+          onValueChange={setProjectFilter}
+        >
+          <TabsList className="bg-transparent h-auto flex flex-wrap justify-center gap-4">
+            {[
+              { value: "all", color: "bg-[#FFD500]", textColor: "text-black" },
+              { value: "web", color: "bg-[#0055BF]", textColor: "text-white" },
+              {
+                value: "mobile",
+                color: "bg-[#E3000B]",
+                textColor: "text-white",
+              },
+              { value: "data", color: "bg-[#009639]", textColor: "text-white" },
+              { value: "game", color: "bg-[#FF8200]", textColor: "text-white" },
+            ].map((tab) => (
+              <TabsTrigger
+                key={tab.value}
+                value={tab.value}
+                className={`relative px-8 py-3 font-black uppercase tracking-widest lego-border transition-all data-[state=active]:scale-110  data-[state=active]:shadow-lg ${tab.color} ${tab.textColor} hover:brightness-110`}
+              >
+                {/* Brick Studs */}
+                <div className="absolute -top-1.5 left-2 w-3 h-1.5 bg-black/20 rounded-t-full" />
+                <div className="absolute -top-1.5 right-2 w-3 h-1.5 bg-black/20 rounded-t-full" />
+                {tab.value}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+        </Tabs>
+      </div>
 
       <motion.div layout className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         <AnimatePresence mode="popLayout">
@@ -90,22 +100,49 @@ export function Projects({ handleFoundBrick, foundBricks }: ProjectsProps) {
                     {project.title}
                   </h3>
                   <div className="flex gap-2">
+                    {/* 
                     <Button
                       size="icon"
                       variant="outline"
                       className="lego-border lego-shadow-sm hover:bg-[#FFD500]"
                     >
-                      {/* <Github className="w-5 h-5" /> */}
-
                       <HugeiconsIcon icon={Github} />
-                    </Button>
-                    <Button
+                    </Button> */}
+                    {/* <Button
                       size="icon"
                       variant="outline"
                       className="lego-border lego-shadow-sm hover:bg-[#0055BF] hover:text-white"
                     >
                       <ExternalLink className="w-5 h-5" />
-                    </Button>
+                    </Button> */}
+
+                    <a
+                      href={project.githubLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Button
+                        size="icon"
+                        variant="outline"
+                        className="lego-border lego-shadow-sm hover:bg-[#FFD500]"
+                      >
+                        <HugeiconsIcon icon={Github} />
+                      </Button>
+                    </a>
+
+                    <a
+                      href={project.liveLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Button
+                        size="icon"
+                        variant="outline"
+                        className="lego-border lego-shadow-sm hover:bg-[#0055BF] hover:text-white"
+                      >
+                        <ExternalLink className="w-5 h-5" />
+                      </Button>
+                    </a>
                   </div>
                 </div>
                 <p className="font-bold text-black/60 mb-6">
@@ -113,9 +150,15 @@ export function Projects({ handleFoundBrick, foundBricks }: ProjectsProps) {
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {project.tags.map((tag) => (
+                    // <Badge
+                    //   key={tag}
+                    //   className="bg-black text-white font-black uppercase text-[10px] tracking-widest"
+                    // >
+                    //   {tag}
+                    // </Badge>
                     <Badge
                       key={tag}
-                      className="bg-black text-white font-black uppercase text-[10px] tracking-widest"
+                      className="bg-[#FFD500] text-black font-black uppercase text-[10px] tracking-widest border-2 border-black"
                     >
                       {tag}
                     </Badge>
