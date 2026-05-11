@@ -17,7 +17,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 2,
-    title: "Webiste Builder",
+    title: "Website Builder",
     description:
       "An interactive platform for designing custom UI components and building full websites, combining creativity with powerful development capabilities.",
     type: "web",

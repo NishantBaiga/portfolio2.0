@@ -1,5 +1,4 @@
 "use client";
-
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence, useDragControls } from "framer-motion";
 import {
@@ -7,9 +6,7 @@ import {
   X,
   Send,
   Bot,
-  User,
   Sparkles,
-  GripHorizontal,
 } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
@@ -21,92 +18,6 @@ interface Message {
 }
 
 export function ChatBot() {
-  //   const [isOpen, setIsOpen] = useState(false);
-  //   const [input, setInput] = useState("");
-  //   const [messages, setMessages] = useState<Message[]>([
-  //     {
-  //       role: "model",
-  //       text: "Hi there! I'm BrickBot. Ask me anything about Nishant's work or hunt for golden bricks 🧱✨",
-  //     },
-  //   ]);
-  //   const [isLoading, setIsLoading] = useState(false);
-  //   const [sessionId, setSessionId] = useState<string | null>(null);
-
-  //   const scrollRef = useRef<HTMLDivElement>(null);
-  //   const dragControls = useDragControls();
-
-  //   // Auto scroll
-  //   useEffect(() => {
-  //     if (scrollRef.current) {
-  //       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-  //     }
-  //   }, [messages, isOpen]);
-
-  //   useEffect(() => {
-  //   let existing = localStorage.getItem("chat_session_id");
-
-  //   if (!existing) {
-  //     existing = crypto.randomUUID(); // 🔥 generate unique session
-  //     localStorage.setItem("chat_session_id", existing);
-  //   }
-
-  //   setSessionId(existing);
-  // }, []);
-
-  //   // Send message
-  //   const handleSend = async () => {
-  //     // if (!input.trim() || isLoading) return;
-  //     if (!input.trim() || isLoading || !sessionId) return;
-
-  //     const userMessage = input.trim();
-  //     setInput("");
-  //     setMessages((prev) => [...prev, { role: "user", text: userMessage }]);
-  //     setIsLoading(true);
-  //     soundManager.play("click");
-
-  //     try {
-  //       const res = await fetch("/api/chat", {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify({
-  //           message: userMessage,
-  //           sessionId,
-  //         }),
-  //       });
-
-  //       const data = await res.json();
-
-  //       if (data.success) {
-  //         setMessages((prev) => [
-  //           ...prev,
-  //           { role: "model", text: data.message },
-  //         ]);
-  //         setSessionId(data.sessionId);
-  //         soundManager.play("snap");
-  //       } else {
-  //         setMessages((prev) => [
-  //           ...prev,
-  //           {
-  //             role: "model",
-  //             text: "Something broke in the brick factory 🧱 Try again!",
-  //           },
-  //         ]);
-  //       }
-  //     } catch (error) {
-  //       setMessages((prev) => [
-  //         ...prev,
-  //         {
-  //           role: "model",
-  //           text: "Server is sleeping 😴 Try again later!",
-  //         },
-  //       ]);
-  //     }
-
-  //     setIsLoading(false);
-  //   };
-
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<Message[]>([
@@ -161,7 +72,8 @@ export function ChatBot() {
           sessionId,
         }),
       });
-
+       
+      console.log("chat response",res);
       const data = await res.json();
 
       if (data.success) {
