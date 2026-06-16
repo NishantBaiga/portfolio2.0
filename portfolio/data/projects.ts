@@ -6,13 +6,13 @@ import pdfQnaImg from "@/assets/pdf-qna.png";
 export const PROJECTS: Project[] = [
   {
     id: 1,
-    title: "PDF Q&A ",
+    title: "Docvora",
     description:
       "A full-stack PDF Q&A and Summrizer platform built(RAG) with Next.js and LangChain.",
     type: "web",
     tags: ["Nextjs", "LangChain", "GeminiAI"],
-    liveLink: "#",
-    githubLink: "https://github.com/NishantBaiga/Pdf-Summariser-RAG-",
+    liveLink: "https://docvora.vercel.app/",
+    githubLink: "https://github.com/NishantBaiga/Docvora",
     image: "/assets/pdf-qna.png",
   },
   {
@@ -22,7 +22,7 @@ export const PROJECTS: Project[] = [
       "An interactive platform for designing custom UI components and building full websites, combining creativity with powerful development capabilities.",
     type: "web",
     tags: ["Inggest", "E2b", "GeminiAI", "React Query ", "TRPC"],
-    liveLink: "#",
+    liveLink: "https://codeagent.vercel.app/",
     githubLink: "https://github.com/NishantBaiga/codeagent",
     image: "/assets/code-agent.png",
   },
